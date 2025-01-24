@@ -1,67 +1,89 @@
-/* styles.css */
+/* style.css */
+
+/* Allgemeiner Hintergrund */
 body {
+    background-color: #1a1a1a;
+    color: white;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f4f4f9;
 }
 
+/* Container für Chat und Eingabebereich */
 #chat-container {
-    width: 400px;
-    max-width: 90%;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    width: 300px;
+    height: 500px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
 }
 
+/* Chat-Box Design */
 #chat-box {
     flex: 1;
+    padding: 10px;
     overflow-y: auto;
-    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #444;
 }
 
+/* Nachrichten-Design */
 .message {
-    margin: 5px 0;
     padding: 8px 12px;
-    border-radius: 4px;
+    border-radius: 15px;
     max-width: 80%;
+    word-wrap: break-word;
 }
 
+/* Bot Nachricht */
 .message.bot {
-    background: #e0e0e0;
+    background-color: #4caf50;
+    color: white;
     align-self: flex-start;
 }
 
+/* User Nachricht */
 .message.user {
-    background: #007bff;
+    background-color: #2196f3;
     color: white;
     align-self: flex-end;
 }
 
-#user-input {
-    width: calc(100% - 80px);
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+/* Eingabefeld und Button-Bereich */
+#input-container {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    background-color: #222;
+    border-top: 1px solid #555;
 }
 
-#send-button {
-    width: 70px;
+/* Eingabefeld */
+#user-input {
+    flex: 1;
     padding: 8px;
-    background: #007bff;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Senden-Button */
+#send-button {
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #4caf50;
     color: white;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
 }
 
 #send-button:hover {
-    background: #0056b3;
+    background-color: #45a049;
 }

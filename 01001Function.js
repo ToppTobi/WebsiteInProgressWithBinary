@@ -1,25 +1,70 @@
-let output = ''; // Initialisiere den Output-String
-let count = 0; // Initialisiere den Zähler
+// script.js
+const chatBox = document.getElementById('chat-box');
+const userInput = document.getElementById('user-input');
+const sendButton = document.getElementById('send-button');
 
-function generateRandomBinary() {
-  const randomNumber = Math.random(); // Generiere eine Zufallszahl zwischen 0 und 1
-  const binaryValue = Math.round(randomNumber);
+// Fragen und Antworten
+const quiz = [
+  { question: "wie heisst Tobis Kuscheltier", answer: "hundi" },
+  { question: "Was isch Tobis lieblingsfarb", answer: "blau" },
+  { question: "Wo will Tobi unbedingt emolle hie goh", answer: "japan" }
+];
 
-  const binaryParagraph = document.getElementById("BinaryParagraph");
+let currentQuestion = 0;
 
-  // Füge die neue Zahl zum Paragraphen hinzu
-  output += binaryValue;
-
-  count++;
-
-  // Füge einen Zeilenumbruch nach jeder 83. Zahl hinzu
-  
-
-  // Aktualisiere den Inhalt des Paragraphen
-  binaryParagraph.innerHTML = output;
-
-  const randomInterval = Math.random() * 3 + 1; // Generiere eine Zufallszahl zwischen 5 und 155 Millisekunden
-  setTimeout(generateRandomBinary, randomInterval); // Setze die nächste Ausführung der Funktion mit dem zufälligen Intervall
+// Funktion zum Hinzufügen einer Nachricht
+function addMessage(message, sender) {
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('message', sender);
+  messageDiv.textContent = message;
+  chatBox.appendChild(messageDiv);
+  chatBox.scrollTop = chatBox.scrollHeight; // Scrollt nach unten
 }
 
-generateRandomBinary();
+// Nächste Frage anzeigen
+function askNextQuestion() {
+  if (currentQuestion < quiz.length) {
+    addMessage(quiz[currentQuestion].question, 'bot');
+  } else {
+    addMessage("JAAA, du hast es geschafft!", 'bot');
+  }
+}
+
+// Antwort überprüfen
+function checkAnswer(userAnswer) {
+  const correctAnswer = quiz[currentQuestion].answer.toLowerCase();
+  if (userAnswer.includes(correctAnswer)) {
+    addMessage("Richtig!", 'bot');
+    currentQuestion++;
+    if (currentQuestion < quiz.length) {
+      askNextQuestion();
+    } else {
+      addMessage("JAAA, du hast es geschafft!", 'bot');
+      addMessage("Das letzte Geschenk ist bei einer Pflanze, die aber nach nichts riecht und vielleicht auch selber gemacht ist.", 'bot');
+
+
+    }
+  } else {
+    addMessage("Falsch, versuche es noch einmal.", 'bot');
+  }
+}
+
+// Event Listener für den Button
+sendButton.addEventListener('click', () => {
+  const userText = userInput.value.trim().toLowerCase();
+  if (userText) {
+    addMessage(userText, 'user');
+    checkAnswer(userText);
+    userInput.value = ''; // Eingabefeld leeren
+  }
+});
+
+// Eingabetaste als Shortcut
+userInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    sendButton.click();
+  }
+});
+
+// Start des Quiz
+askNextQuestion();
